@@ -16,7 +16,7 @@
   command: /home/vagrant/.virtualenvs/elcid/bin/pip install -r /usr/lib/ohc/elcid/requirements.txt
 
 - name: Uninstall elCID OPAL
-  command: /home/vagrant/.virtualenvs/elcid/bin/pip uninstall opal
+  command: /home/vagrant/.virtualenvs/elcid/bin/pip uninstall -y opal
 
 - name: Install development opal
   command: /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/opal/setup.py develop
