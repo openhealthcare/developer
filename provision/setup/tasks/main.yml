@@ -19,6 +19,7 @@
       - htop
       - ack-grep
       - virtualenvwrapper
+      - curl
 
       # Dev tools
       - git
