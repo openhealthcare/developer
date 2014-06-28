@@ -12,6 +12,12 @@
 - name: Create elCID Virtualenv
   command: virtualenv  /home/vagrant/.virtualenvs/elcid
   
+- name: Pretend to be virtualenvwrapper
+  file: dest=/home/vagrant/.virtualenvs/elcid/.project state=touch
+
+- name: Pretend to be virtualenvwrapper pt. 2
+  lineinfile: dest=/home/vagrant/.virtualenvs/elcid/.project line="/usr/lib/ohc/elcid"
+
 - name: Install elCID Dependencies
   command: /home/vagrant/.virtualenvs/elcid/bin/pip install -r /usr/lib/ohc/elcid/requirements.txt
 
