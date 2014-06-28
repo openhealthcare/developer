@@ -26,3 +26,9 @@
 
 - name: Install development opal
   command: /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/opal/setup.py develop
+
+- name: Sync Our Databases - initial!
+  command: /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/elcid/manage.py syncdb --noinput --migrate
+
+- name: Create a local settings file!
+  copy: src=elcid_local_settings.py dest=/usr/lib/ohc/elcid/elcid/local_settings.py force=yes
