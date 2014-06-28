@@ -1,0 +1,41 @@
+- name: Install packages
+  sudo: yes
+  apt: pkg={{ item }} state=installed update_cache=yes
+  with_items:
+      # Database
+      - postgresql
+      - libpq-dev # Required for Ansible to interact with postgres
+      - python-psycopg2 # Required for Ansible to interact with postgres
+
+      # Python Dev
+      - python-dev
+      - python-setuptools
+      - python-virtualenv
+
+      # Just nice
+      - screen
+      - vim
+      - emacs
+      - htop
+      - ack-grep
+      - virtualenvwrapper
+
+      # Dev tools
+      - git
+
+- name: Allow password authentication for local socket users
+  sudo: yes
+  copy: src=pg_hba.conf dest=/etc/postgresql/9.1/main/pg_hba.conf force=yes
+  notify:
+      - Restart Postgres
+
+- name: Setup Working Directories
+  sudo: yes
+  file: path=/usr/lib/ohc state=directory mode=777
+
+- name: SSH | Find Git repo SSH host key
+  shell: ssh-keyscan github.com
+  register: git_repo_host_key
+
+- name: SSH | Add Git repo host key to known_hosts file
+  lineinfile: create=yes dest=/home/vagrant/.ssh/known_hosts line='{{ git_repo_host_key.stdout }}' state=present
