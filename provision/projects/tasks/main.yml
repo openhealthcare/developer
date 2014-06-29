@@ -36,6 +36,6 @@
   copy: src=elcid_local_settings.py dest=/usr/lib/ohc/elcid/elcid/local_settings.py force=yes
 
 - name:  Create users
-  command: echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', admin@example.com', 'super1')" | ./manage.py shell
+  command: echo "from django.contrib.auth.models import User; User.objects.create_superuser('super', admin@example.com', 'super1')" | ./manage.py shell
 
 
