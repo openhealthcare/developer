@@ -15,6 +15,9 @@ You should  have the following things installed:
 * Python (https://www.python.org/)
 * Virtualenv[Wrapper] (http://virtualenvwrapper.readthedocs.org/en/latest/)
 
+Note: You should make sure that you've set up SSH agent forwarding!
+If you've not done this before, running ssh-add will help.
+
 Got all that? Proceed directly to step 1.
 
 ### Step 1. - Bootstrapping
@@ -38,10 +41,44 @@ Run the bootstrap script:
 
 ### Step 2. - 
 
-TODO: Create a superuser
-TODO: Run the service(s)
+OK - so the bootstrap script will have created you a VM, installed some development tools onto it, checked out the source code of out projects, installed dependencies, created users, and generally done a whole bunch of lifting for you.
+
+Next step is to log into the VM: 
+
+    $ vagrant ssh
+
+From there you will have some virtual environments for projects set up - activate one of these: 
+
+    $ workon elcid
+
+This will activate the correct sandbox and take you to the correct working directory for that project from here, you can run the service: 
+
+    $ python manage.py runserver 0.0.0.0:8000
+
+The vagrant box will forward this port - so you should be able to now visit http://localhost:8000 and see a running version of the project. 
+
+Standard development superusers will have been created, so try logging in with super/super1
+
 TODO: Run the tests
 
 ### Step 3. 
 
 There is no step 3. 
+
+## What now?
+
+This process has created a stable, automated development environment for you!
+
+The source code for projects is located in /usr/lib/ohc/... in the vagrant box, which is mounted to ./src on your guest. 
+
+More specific documentation about each individual project should be available from it's source code or documentation site.
+
+## Development Workflow
+
+The 
+
+* Issue
+* Branch, Code & Tests
+* PR & Review
+* Deploy to test 
+* Sign-off
