@@ -25,6 +25,10 @@
 - name:  Install development opal
   command: /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/opal/setup.py develop
 
+- name: Set up JS Unittesting
+  sudo: yes
+  command: npm install karma chdir=/usr/lib/ohc/elcid
+
 - name:  Sync Our Databases - initial!
   command: /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/elcid/manage.py syncdb --noinput --migrate
 
@@ -37,5 +41,4 @@
 
 - name:  Create users
   command: echo "from django.contrib.auth.models import User; User.objects.create_superuser('super', admin@example.com', 'super1')" | ./manage.py shell
-
 

@@ -1,3 +1,15 @@
+- name: Add nice repository adding
+  sudo: yes
+  apt: pkg=python-software-properties
+
+- name: Add NPM PPA
+  sudo: yes
+  command: add-apt-repository ppa:chris-lea/node.js -y
+
+- name: Update Apt
+  sudo: yes
+  command: apt-get update
+
 - name: Install packages
   sudo: yes
   apt: pkg={{ item }} state=installed update_cache=yes
@@ -23,6 +35,8 @@
 
       # Dev tools
       - git
+      - rake
+      - nodejs
 
 - name: Allow password authentication for local socket users
   sudo: yes
