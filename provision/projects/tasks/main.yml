@@ -1,34 +1,41 @@
+# TODO: Make these pushable from the host
 - name: Install Sauce Codes
-  git: repo=https://github.com/openhealthcare/{{ item }} 
-       dest=/usr/lib/ohc/{{ item }} 
-
+  git: repo=git@github.com:openhealthcare/{{ item }} 
+       dest=/usr/lib/ohc/{{ item }} update=yes
   with_items: 
       - opal
       - elcid
 
-
-# name: elCID project setup
-
-- name: Create elCID Virtualenv
+#- name: elCID project setup
+- name:  Create elCID Virtualenv
   command: virtualenv  /home/vagrant/.virtualenvs/elcid
   
-- name: Pretend to be virtualenvwrapper
+- name:  Pretend to be virtualenvwrapper
   file: dest=/home/vagrant/.virtualenvs/elcid/.project state=touch
 
-- name: Pretend to be virtualenvwrapper pt. 2
+- name:  Pretend to be virtualenvwrapper pt. 2
   lineinfile: dest=/home/vagrant/.virtualenvs/elcid/.project line="/usr/lib/ohc/elcid"
 
-- name: Install elCID Dependencies
+- name:  Install elCID Dependencies
   command: /home/vagrant/.virtualenvs/elcid/bin/pip install -r /usr/lib/ohc/elcid/requirements.txt
 
-- name: Uninstall elCID OPAL
+- name:  Uninstall elCID OPAL
   command: /home/vagrant/.virtualenvs/elcid/bin/pip uninstall -y opal
 
-- name: Install development opal
+- name:  Install development opal
   command: /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/opal/setup.py develop
 
-- name: Sync Our Databases - initial!
+- name:  Sync Our Databases - initial!
   command: /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/elcid/manage.py syncdb --noinput --migrate
 
-- name: Create a local settings file!
+- name:  Load the lookup lists!
+  command: /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/elcid/manage.py loaddata dumps/options.json
+  command: /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/elcid/manage.py loaddata dumps/opat.json
+
+- name:  Create a local settings file!
   copy: src=elcid_local_settings.py dest=/usr/lib/ohc/elcid/elcid/local_settings.py force=yes
+
+- name:  Create users
+  command: echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', admin@example.com', 'super1')" | ./manage.py shell
+
+
