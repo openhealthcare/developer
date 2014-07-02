@@ -41,7 +41,7 @@
   copy: src=elcid_local_settings.py dest=/usr/lib/ohc/elcid/elcid/local_settings.py force=yes
 
 - name:  Create users
-  command: echo "from django.contrib.auth.models import User; User.objects.create_superuser('super', admin@example.com', 'super1')" | ./manage.py shell
+  command: echo "from django.contrib.auth.models import User; User.objects.create_superuser('super', 'admin@example.com', 'super1')" | /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/elcid/manage.py shell
            chdir=/usr/lib/ohc/elcid
 
 # Who Pays This Doctor Dot Org
@@ -65,5 +65,5 @@
   copy: src=elcid_local_settings.py dest=/usr/lib/ohc/whopaysthisdoctor.org/whopays/local_settings.py force=yes
 
 - name:  Create users
-  command: echo "from django.contrib.auth.models import User; User.objects.create_superuser('super', admin@example.com', 'super1')" | ./manage.py shell
+  command: echo "from django.contrib.auth.models import User; User.objects.create_superuser('super', 'admin@example.com', 'super1')" | /home/vagrant/.virtualenvs/whopays/bin/python manage.py shell
            chdir=/usr/lib/ohc/whopaysthisdoctor.org
