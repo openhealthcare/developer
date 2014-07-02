@@ -16,7 +16,7 @@
 
 - name: Install packages
   sudo: yes
-  apt: pkg={{ item }} state=installed update_cache=yes
+  apt: pkg={{ item }} state=installed update_cache=yes force=yes
   with_items:
       # Database
       - postgresql
