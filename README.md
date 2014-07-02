@@ -39,7 +39,7 @@ Run the bootstrap script:
 
     $ ./bin/bootstrap
 
-### Step 2. - 
+### Step 2. - Run Something
 
 OK - so the bootstrap script will have created you a VM, installed some development tools onto it, checked out the source code of out projects, installed dependencies, created users, and generally done a whole bunch of lifting for you.
 
@@ -99,15 +99,15 @@ All new interfaces should come with appropriate documentation, except when they 
 
 Use your skill, experience && judgement to figure out when the thing you're doing is exceptional ;)
 
-* PR & Review
+### PR & Review
 
 All code gets reviewed by a technical colleague where possible - so PRs are your friend. Exeptions may apply to "all". 
 
-* Deploy to test 
 
+### Deploy to test 
 As a general rule, we maintain test servers per deployment, and per sprint/major feature set, on some kind of cloud IAAS/PAAS system. Specifics will vary. 
 
-* Sign-off
+### Sign-off
 
 As a general rule the originator of the issue should sign off that the implementation meets their needs. In practice, use your skill & judgement. 
 
