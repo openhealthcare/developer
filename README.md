@@ -15,8 +15,8 @@ You should  have the following things installed:
 * Python (https://www.python.org/)
 * Virtualenv[Wrapper] (http://virtualenvwrapper.readthedocs.org/en/latest/)
 
-Note: You should make sure that you've set up SSH agent forwarding!
-If you've not done this before, running ssh-add will help.
+```Note: You should make sure that you've set up SSH agent forwarding!
+If you've not done this before, running ssh-add will help.```
 
 Got all that? Proceed directly to step 1.
 
@@ -38,6 +38,9 @@ Install the requirements for provisioning your dev environment:
 Run the bootstrap script: 
 
     $ ./bin/bootstrap
+
+```Note: if you're running an old version of Vagrant (< 1.6.3), it may not know about the existence of 
+named boxes on Vagrant Cloud. Try updating the latest version!```
 
 ### Step 2. - Run Something
 
