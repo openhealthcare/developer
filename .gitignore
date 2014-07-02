@@ -1,6 +1,11 @@
 # Vagrant
 .vagrant/
 
+*~
+
+# Mounted directory from guest
+src/
+
 # Python
 bin/
 build/
