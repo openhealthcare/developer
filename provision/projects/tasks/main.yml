@@ -5,6 +5,7 @@
   with_items: 
       - opal
       - elcid
+      - whopaysthisdoctor.org
 
 #- name: elCID project setup
 - name:  Create elCID Virtualenv
@@ -41,4 +42,28 @@
 
 - name:  Create users
   command: echo "from django.contrib.auth.models import User; User.objects.create_superuser('super', admin@example.com', 'super1')" | ./manage.py shell
+           chdir=/usr/lib/ohc/elcid
 
+# Who Pays This Doctor Dot Org
+
+- name:  Create whopays Virtualenv
+  command: virtualenv  /home/vagrant/.virtualenvs/whopays
+  
+- name:  Pretend to be virtualenvwrapper
+  file: dest=/home/vagrant/.virtualenvs/whopays/.project state=touch
+
+- name:  Pretend to be virtualenvwrapper pt. 2
+  lineinfile: dest=/home/vagrant/.virtualenvs/whopays/.project line="/usr/lib/ohc/whopaysthisdoctor.org"
+
+- name:  Install whopays Dependencies
+  command: /home/vagrant/.virtualenvs/whopays/bin/pip install -r /usr/lib/ohc/whopaysthisdoctor.org/requirements.txt
+
+- name:  Sync Our Databases - initial!
+  command: /home/vagrant/.virtualenvs/whopays/bin/python /usr/lib/ohc/whopaysthisdoctor.org/manage.py syncdb --noinput --migrate
+
+- name:  Create a local settings file!
+  copy: src=elcid_local_settings.py dest=/usr/lib/ohc/whopaysthisdoctor.org/whopays/local_settings.py force=yes
+
+- name:  Create users
+  command: echo "from django.contrib.auth.models import User; User.objects.create_superuser('super', admin@example.com', 'super1')" | ./manage.py shell
+           chdir=/usr/lib/ohc/whopaysthisdoctor.org
