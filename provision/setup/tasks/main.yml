@@ -1,3 +1,7 @@
+- name: Update Apt
+  sudo: yes
+  command: apt-get update
+
 - name: Add nice repository adding
   sudo: yes
   apt: pkg=python-software-properties
