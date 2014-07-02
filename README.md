@@ -54,11 +54,11 @@ From there you will have some virtual environments for projects set up - activat
 
     $ workon elcid
 
-This will activate the correct sandbox and take you to the correct working directory for that project. Before you start, you should create yourself a superuser account:
+This will activate the correct sandbox and take you to the correct working directory for that project. 
 
-    $ python manage.py createsuperuser
+Standard development superusers will have been created, so try logging in with super/super1
 
-After you've created yourself a user , you can run the service: 
+From here , you can run the service: 
 
     $ python manage.py runserver 0.0.0.0:8000
 
