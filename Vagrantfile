@@ -4,6 +4,10 @@
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
+# Just in case someone also has vmware provider installed, let's default to 
+# using Virtualbox.
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,
