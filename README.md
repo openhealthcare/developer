@@ -75,10 +75,39 @@ More specific documentation about each individual project should be available fr
 
 ## Development Workflow
 
-The 
+All projects are Code-In-The-Open, with governance conducted on public mailing lists and a record of issues/responses available on the web.
 
-* Issue
-* Branch, Code & Tests
+In practice, this means that we have a google group and a github repository.
+
+The workflow for OHC projects is broadly as follows: 
+
+### Issue
+
+Issues are created on a public bug tracker, either by developers for technical issues, end users, or Some Other Interested Party
+
+Issues are prioritised & assigned through a process that differs slightly from project to project, but follows some mutation of "Agile". 
+
+c.f. [the elCID Waffle board](https://waffle.io/openhealthcare/elcid)
+
+### Branch, Code & Tests
+
+Work happens in a broadly branch-per-issue manner, except when it doesn't.
+
+All new code && bugfixes should come with appropriate tests, except when they don't.
+
+All new interfaces should come with appropriate documentation, except when they don't.
+
+Use your skill, experience && judgement to figure out when the thing you're doing is exceptional ;)
+
 * PR & Review
+
+All code gets reviewed by a technical colleague where possible - so PRs are your friend. Exeptions may apply to "all". 
+
 * Deploy to test 
+
+As a general rule, we maintain test servers per deployment, and per sprint/major feature set, on some kind of cloud IAAS/PAAS system. Specifics will vary. 
+
 * Sign-off
+
+As a general rule the originator of the issue should sign off that the implementation meets their needs. In practice, use your skill & judgement. 
+
