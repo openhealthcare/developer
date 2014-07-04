@@ -6,6 +6,7 @@
       - opal
       - elcid
       - whopaysthisdoctor.org
+      - static-ohc
 
 #- name: elCID project setup
 - name:  Create elCID Virtualenv
@@ -67,3 +68,14 @@
 - name:  Create users
   command: echo "from django.contrib.auth.models import User; User.objects.create_superuser('super', 'admin@example.com', 'super1')" | /home/vagrant/.virtualenvs/whopays/bin/python manage.py shell
            chdir=/usr/lib/ohc/whopaysthisdoctor.org
+
+# Static OHC site.
+
+- name: install rvm
+  shell: \curl -L https://get.rvm.io | bash -s stable --autolibs=3 creates=~/.rvm
+
+- name: install ruby
+  shell: ~/.rvm/bin/rvm install --default 1.9.3 creates=~/.rvm/rubies/1.9.3
+
+- name: bundle install
+  shell: 'executable=/bin/bash chdir=/usr/lib/ohc/static-ohc . "$HOME/.rvm/scripts/rvm" ; rvm use 1.9.3@ohcstatic --create ; bundle'
