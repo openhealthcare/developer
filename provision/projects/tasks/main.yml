@@ -7,6 +7,7 @@
       - elcid
       - whopaysthisdoctor.org
       - static-ohc
+      - randomise.me
 
 #- name: elCID project setup
 - name:  Create elCID Virtualenv
