@@ -1,13 +1,31 @@
 # TODO: Make these pushable from the host
-- name: Install Sauce Codes
+
+- name: Install Sauce Codes (elcid, opal)
   git: repo=git@github.com:openhealthcare/{{ item }} 
        dest=/usr/lib/ohc/{{ item }} update=yes
   with_items: 
       - opal
       - elcid
-      - whopaysthisdoctor.org
+
+- name: Install Sauce Codes (static sites)
+  git: repo=git@github.com:openhealthcare/{{ item }} 
+       dest=/usr/lib/ohc/{{ item }} update=yes
+  with_items: 
       - static-ohc
+
+- name: Install Sauce Codes (who pays?)
+  git: repo=git@github.com:openhealthcare/{{ item }} 
+       dest=/usr/lib/ohc/{{ item }} update=yes
+  with_items: 
+      - whopaysthisdoctor.org
+
+- name: Install Sauce Codes (RM)
+  git: repo=git@github.com:openhealthcare/{{ item }} 
+       dest=/usr/lib/ohc/{{ item }} update=yes
+  with_items: 
       - randomise.me
+
+
 
 #- name: elCID project setup
 - name:  Create elCID Virtualenv
