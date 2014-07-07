@@ -112,9 +112,13 @@
 - name:  Install Randomise.me Dependencies
   command: /home/vagrant/.virtualenvs/rm/bin/pip install -r /usr/lib/ohc/randomise.me/requirements.txt
 
-- name:  Sync Our Databases - initial!
-  command: /home/vagrant/.virtualenvs/rm/bin/python /usr/lib/ohc/randomise.me/manage.py syncdb --noinput --migrate
+- name:  Sync Our RM Databases - initial!
+  command: chdir=/usr/lib/ohc/randomise.me/ /home/vagrant/.virtualenvs/rm/bin/python manage.py syncdb --noinput --migrate
 
 - name:  Create users
   command: echo "from django.contrib.auth.models import User; User.objects.create_superuser('super', 'admin@example.com', 'super1')" | /home/vagrant/.virtualenvs/rm/bin/python manage.py shell
            chdir=/usr/lib/ohc/randomise.me
+
+- name: Create local settings file
+  copy: src=rm_local_settings.py dest=/usr/lib/ohc/randomise.me/rm/local_settings.py
+  

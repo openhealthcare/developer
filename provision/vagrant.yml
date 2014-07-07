@@ -1,5 +1,5 @@
 - hosts: all
   gather_facts: false
   roles: 
-      - setup
+      - setup                   
       - projects
