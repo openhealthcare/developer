@@ -111,8 +111,9 @@
 
 - name:  Install Randomise.me Dependencies
   command: /home/vagrant/.virtualenvs/rm/bin/pip install -r /usr/lib/ohc/randomise.me/requirements.txt
+
+# Statsmodels does some funky nonsense in it's setup.py that means we must hav scipy!
 - name: Install statsmodels
-  # Statsmodels does some funky nonsense in it's setup.py that means we must hav scipy!
   command: /home/vagrant/.virtualenvs/rm/bin/pip install statsmodels==0.5.0
 
 - name:  Sync Our RM Databases - initial!
