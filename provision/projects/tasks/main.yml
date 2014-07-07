@@ -7,25 +7,6 @@
       - opal
       - elcid
 
-- name: Install Sauce Codes (static sites)
-  git: repo=git@github.com:openhealthcare/{{ item }} 
-       dest=/usr/lib/ohc/{{ item }} update=yes
-  with_items: 
-      - static-ohc
-
-- name: Install Sauce Codes (who pays?)
-  git: repo=git@github.com:openhealthcare/{{ item }} 
-       dest=/usr/lib/ohc/{{ item }} update=yes
-  with_items: 
-      - whopaysthisdoctor.org
-
-- name: Install Sauce Codes (RM)
-  git: repo=git@github.com:openhealthcare/{{ item }} 
-       dest=/usr/lib/ohc/{{ item }} update=yes
-  with_items: 
-      - randomise.me
-
-
 
 #- name: elCID project setup
 - name:  Create elCID Virtualenv
@@ -66,6 +47,13 @@
 
 # Who Pays This Doctor Dot Org
 
+
+- name: Install Sauce Codes (who pays?)
+  git: repo=git@github.com:openhealthcare/{{ item }} 
+       dest=/usr/lib/ohc/{{ item }} update=yes
+  with_items: 
+      - whopaysthisdoctor.org
+
 - name:  Create whopays Virtualenv
   command: virtualenv  /home/vagrant/.virtualenvs/whopays
   
@@ -90,6 +78,12 @@
 
 # Static OHC site.
 
+- name: Install Sauce Codes (static sites)
+  git: repo=git@github.com:openhealthcare/{{ item }} 
+       dest=/usr/lib/ohc/{{ item }} update=yes
+  with_items: 
+      - static-ohc
+
 - name: install rvm
   shell: \curl -L https://get.rvm.io | bash -s stable --autolibs=3 creates=~/.rvm
 
@@ -100,6 +94,12 @@
   shell: 'executable=/bin/bash chdir=/usr/lib/ohc/static-ohc . "$HOME/.rvm/scripts/rvm" ; rvm use 1.9.3@ohcstatic --create ; bundle'
 
 # Randomise Me
+
+- name: Install Sauce Codes (RM)
+  git: repo=git@github.com:openhealthcare/{{ item }} 
+       dest=/usr/lib/ohc/{{ item }} update=yes
+  with_items: 
+      - randomise.me
 
 - name: Randomise.me apt dependencies
   apt: pkg={{ item }} update_cache=yes
