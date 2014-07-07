@@ -32,11 +32,11 @@
   command: npm install karma chdir=/usr/lib/ohc/elcid
 
 - name:  Sync Our Databases - initial!
-  command: /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/elcid/manage.py syncdb --noinput --migrate
+  command: chdir=/usr/lib/ohc/elcid/ /home/vagrant/.virtualenvs/elcid/bin/python manage.py syncdb --noinput --migrate
 
 - name:  Load the lookup lists!
-  command: /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/elcid/manage.py loaddata dumps/options.json
-  command: /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/elcid/manage.py loaddata dumps/opat.json
+  command: chdir=/usr/lib/ohc/elcid/ /home/vagrant/.virtualenvs/elcid/bin/python manage.py loaddata dumps/options.json
+  command: chdir=/usr/lib/ohc/elcid/ /home/vagrant/.virtualenvs/elcid/bin/python manage.py loaddata dumps/opat.json
 
 - name:  Create a local settings file!
   copy: src=elcid_local_settings.py dest=/usr/lib/ohc/elcid/elcid/local_settings.py force=yes
