@@ -7,6 +7,7 @@
       - elcid
       - whopaysthisdoctor.org
       - static-ohc
+      - randomise.me
 
 #- name: elCID project setup
 - name:  Create elCID Virtualenv
@@ -79,3 +80,45 @@
 
 - name: bundle install
   shell: 'executable=/bin/bash chdir=/usr/lib/ohc/static-ohc . "$HOME/.rvm/scripts/rvm" ; rvm use 1.9.3@ohcstatic --create ; bundle'
+
+# Randomise Me
+
+- name: Randomise.me apt dependencies
+  apt: pkg={{ item }} update_cache=yes
+  sudo: true
+  with_items:
+    - libxml2 
+    - libxml2-dev 
+    - libxslt-dev 
+    - libevent-2.0-5 
+    - libevent-dev 
+    - libblas-dev 
+    - libblas3gf 
+    - gfortran 
+    - liblapack-dev
+
+- name:  Create Randomise.me Virtualenv
+  command: virtualenv  /home/vagrant/.virtualenvs/rm
+  
+- name:  Pretend to be virtualenvwrapper
+  file: dest=/home/vagrant/.virtualenvs/rm/.project state=touch
+
+- name:  Pretend to be virtualenvwrapper pt. 2
+  lineinfile: dest=/home/vagrant/.virtualenvs/rm/.project line="/usr/lib/ohc/randomise.me"
+
+- name: Install numpy so that scipy doesn't complain.
+  command:  /home/vagrant/.virtualenvs/rm/bin/pip install numpy==1.7.1
+
+- name:  Install Randomise.me Dependencies
+  command: /home/vagrant/.virtualenvs/rm/bin/pip install -r /usr/lib/ohc/randomise.me/requirements.txt
+
+- name:  Sync Our RM Databases - initial!
+  command: chdir=/usr/lib/ohc/randomise.me/ /home/vagrant/.virtualenvs/rm/bin/python manage.py syncdb --noinput --migrate
+
+- name:  Create users
+  command: echo "from django.contrib.auth.models import User; User.objects.create_superuser('super', 'admin@example.com', 'super1')" | /home/vagrant/.virtualenvs/rm/bin/python manage.py shell
+           chdir=/usr/lib/ohc/randomise.me
+
+- name: Create local settings file
+  copy: src=rm_local_settings.py dest=/usr/lib/ohc/randomise.me/rm/local_settings.py
+  
