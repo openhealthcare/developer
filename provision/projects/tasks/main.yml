@@ -45,6 +45,16 @@
   command: echo "from django.contrib.auth.models import User; User.objects.create_superuser('super', 'admin@example.com', 'super1')" | /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/elcid/manage.py shell
            chdir=/usr/lib/ohc/elcid
 
+# OPAL Plugins
+
+- name: Install Sauce Codes (OPAL Plugins)
+  git: repo=git@github.com:openhealthcare/{{ item }} 
+       dest=/usr/lib/ohc/{{ item }} update=yes
+  with_items: 
+      - opal-infectioncontrol
+      - opal-research
+
+           
 # Who Pays This Doctor Dot Org
 
 
@@ -143,4 +153,6 @@
 
 - name: Create local settings file
   copy: src=rm_local_settings.py dest=/usr/lib/ohc/randomise.me/rm/local_settings.py
+
+
   
