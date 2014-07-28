@@ -31,6 +31,22 @@
   sudo: yes
   command: npm install karma chdir=/usr/lib/ohc/elcid
 
+- name: Set up JS BDD framework
+  sudo: yes
+  command: npm install karma-jasmine -g
+  
+- name: Set up JS coverage
+  sudo: yes
+  command: npm install karma-coverage -g
+  
+- name: Add karma to path
+  sudo: yes
+  command: ln -s /usr/lib/node_modules/karma/bin/karma /usr/local/bin/
+
+- name: Add firefox launcher
+  sudo: yes
+  command: npm install -g karma-firefox-launcher
+  
 - name:  Sync Our Databases - initial!
   command: chdir=/usr/lib/ohc/elcid/ /home/vagrant/.virtualenvs/elcid/bin/python manage.py syncdb --noinput --migrate
 
@@ -44,6 +60,7 @@
 - name:  Create users
   command: echo "from django.contrib.auth.models import User; User.objects.create_superuser('super', 'admin@example.com', 'super1')" | /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/elcid/manage.py shell
            chdir=/usr/lib/ohc/elcid
+
 
 # OPAL Plugins
 

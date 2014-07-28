@@ -41,7 +41,19 @@
       - git
       - rake
       - nodejs
+      - firefox
+      - xvfb
 
+- name: Add xvfb initscript
+  sudo: yes
+  copy: src=xvfb dest=/etc/init.d/xvfb
+
+- name: Make initscript executable
+  sudo: yes
+  command: chmod +x /etc/init.d/xvfb
+  notify:
+    - Restart XVFB
+      
 - name: Allow password authentication for local socket users
   sudo: yes
   copy: src=pg_hba.conf dest=/etc/postgresql/9.1/main/pg_hba.conf force=yes

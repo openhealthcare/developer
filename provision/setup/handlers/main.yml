@@ -1,3 +1,7 @@
 - name: Restart Postgres
   sudo: yes
   service: name=postgresql state=restarted
+
+- name: Restart XVFB
+  sudo: yes
+  service: name=xvfb state=restarted
