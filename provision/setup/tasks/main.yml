@@ -44,6 +44,14 @@
       - firefox
       - xvfb
 
+- name: Set DISPLAY
+  sudo: yes
+  lineinfile: dest=/etc/profile regexp=DISPLAY= line=export DISPLAY=:10
+
+- name: Set FF BIN
+  sudo: yes
+  lineinfile: dest=/etc/profile regexp=FIREFOX_BIN= line=export FIREFOX_BIN=/usr/bin/firefox 
+      
 - name: Add xvfb initscript
   sudo: yes
   copy: src=xvfb dest=/etc/init.d/xvfb
