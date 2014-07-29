@@ -44,14 +44,10 @@
       - firefox
       - xvfb
 
-- name: Set DISPLAY
+- name: Set env variables
   sudo: yes
-  lineinfile: dest=/etc/profile regexp=DISPLAY= line=export DISPLAY=:10
+  copy: src=ohc.environ.sh dest=/etc/profile.d/ohc.environ.sh
 
-- name: Set FF BIN
-  sudo: yes
-  lineinfile: dest=/etc/profile regexp=FIREFOX_BIN= line=export FIREFOX_BIN=/usr/bin/firefox 
-      
 - name: Add xvfb initscript
   sudo: yes
   copy: src=xvfb dest=/etc/init.d/xvfb
