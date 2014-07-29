@@ -41,11 +41,11 @@
   
 - name: Add karma to path
   sudo: yes
-  command: ln -s /usr/lib/node_modules/karma/bin/karma /usr/local/bin/
+  file: src=/usr/lib/node_modules/karma/bin/karma dest=/usr/local/bin/karma state=link
 
 - name: Add firefox launcher
   sudo: yes
-  command: npm install -g karma-firefox-launcher
+  command: npm install -g karma-firefox-launchero
   
 - name:  Sync Our Databases - initial!
   command: chdir=/usr/lib/ohc/elcid/ /home/vagrant/.virtualenvs/elcid/bin/python manage.py syncdb --noinput --migrate
