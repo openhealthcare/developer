@@ -45,7 +45,7 @@
 
 - name: Add firefox launcher
   sudo: yes
-  command: npm install -g karma-firefox-launchero
+  command: npm install -g karma-firefox-launcher
   
 - name:  Sync Our Databases - initial!
   command: chdir=/usr/lib/ohc/elcid/ /home/vagrant/.virtualenvs/elcid/bin/python manage.py syncdb --noinput --migrate
