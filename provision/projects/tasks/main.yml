@@ -53,6 +53,8 @@
   with_items: 
       - opal-infectioncontrol
       - opal-research
+      - opal-observations
+      - opal-walk-in
 
            
 # Who Pays This Doctor Dot Org
