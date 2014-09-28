@@ -57,7 +57,7 @@
       - opal-walk-in
 
 - name: Add to elcid env (OPAL Plugins)
-  /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/{{item}}/setup.py develop
+  command: /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/{{item}}/setup.py develop
   with_items: 
       - opal-infectioncontrol
       - opal-research
