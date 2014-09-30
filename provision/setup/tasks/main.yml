@@ -71,4 +71,7 @@
   
 - name: Install Elixir
   sudo: yes
-  apt: pkg=elixir state=installed update_cache=yes force=yes
+  apt: pkg={{ item }} state=installed update_cache=yes force=yes
+  with_items:
+    erlang
+    elixir
