@@ -58,3 +58,17 @@
 
 - name: SSH | Add Git repo host key to known_hosts file
   lineinfile: create=yes dest=/home/vagrant/.ssh/known_hosts line='{{ git_repo_host_key.stdout }}' state=present
+
+# Elixir
+
+- name: Erlang Solutionise
+  sudo: yes
+  command: wget http://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb chdir=/tmp
+
+- name: Install deb  
+  sudo: yes
+  command: dpkg -i erlang-solutions_1.0_all.deb chdir=/tmp
+  
+- name: Install Elixir
+  sudo: yes
+  apt: pkg=elixir state=installed update_cache=yes force=yes
