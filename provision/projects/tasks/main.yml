@@ -1,9 +1,9 @@
 # TODO: Make these pushable from the host
 
 - name: Install Sauce Codes (elcid, opal)
-  git: repo=git@github.com:openhealthcare/{{ item }} 
+  git: repo=git@github.com:openhealthcare/{{ item }}
        dest=/usr/lib/ohc/{{ item }} update=yes
-  with_items: 
+  with_items:
       - opal
       - elcid
 
@@ -11,7 +11,7 @@
 #- name: elCID project setup
 - name:  Create elCID Virtualenv
   command: virtualenv  /home/vagrant/.virtualenvs/elcid
-  
+
 - name:  Pretend to be virtualenvwrapper
   file: dest=/home/vagrant/.virtualenvs/elcid/.project state=touch
 
@@ -48,9 +48,9 @@
 # OPAL Plugins
 
 - name: Install Sauce Codes (OPAL Plugins)
-  git: repo=git@github.com:openhealthcare/{{ item }} 
+  git: repo=git@github.com:openhealthcare/{{ item }}
        dest=/usr/lib/ohc/{{ item }} update=yes
-  with_items: 
+  with_items:
       - opal-infectioncontrol
       - opal-research
       - opal-observations
@@ -58,24 +58,24 @@
 
 - name: Add to elcid env (OPAL Plugins)
   command: /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/{{item}}/setup.py develop
-  with_items: 
+  with_items:
       - opal-infectioncontrol
       - opal-research
       - opal-observations
       - opal-walk-in
-           
+
 # Who Pays This Doctor Dot Org
 
 
 - name: Install Sauce Codes (who pays?)
-  git: repo=git@github.com:openhealthcare/{{ item }} 
+  git: repo=git@github.com:openhealthcare/{{ item }}
        dest=/usr/lib/ohc/{{ item }} update=yes
-  with_items: 
+  with_items:
       - whopaysthisdoctor.org
 
 - name:  Create whopays Virtualenv
   command: virtualenv  /home/vagrant/.virtualenvs/whopays
-  
+
 - name:  Pretend to be virtualenvwrapper
   file: dest=/home/vagrant/.virtualenvs/whopays/.project state=touch
 
@@ -98,9 +98,9 @@
 # Static OHC site.
 
 - name: Install Sauce Codes (static sites)
-  git: repo=git@github.com:openhealthcare/{{ item }} 
+  git: repo=git@github.com:openhealthcare/{{ item }}
        dest=/usr/lib/ohc/{{ item }} update=yes
-  with_items: 
+  with_items:
       - static-ohc
 
 - name: install rvm
@@ -115,28 +115,28 @@
 # Randomise Me
 
 - name: Install Sauce Codes (RM)
-  git: repo=git@github.com:openhealthcare/{{ item }} 
+  git: repo=git@github.com:openhealthcare/{{ item }}
        dest=/usr/lib/ohc/{{ item }} update=yes
-  with_items: 
+  with_items:
       - randomise.me
 
 - name: Randomise.me apt dependencies
   apt: pkg={{ item }} update_cache=yes
   sudo: true
   with_items:
-    - libxml2 
-    - libxml2-dev 
-    - libxslt-dev 
-    - libevent-2.0-5 
-    - libevent-dev 
-    - libblas-dev 
-    - libblas3gf 
-    - gfortran 
+    - libxml2
+    - libxml2-dev
+    - libxslt-dev
+    - libevent-2.0-5
+    - libevent-dev
+    - libblas-dev
+    - libblas3gf
+    - gfortran
     - liblapack-dev
 
 - name:  Create Randomise.me Virtualenv
   command: virtualenv  /home/vagrant/.virtualenvs/rm
-  
+
 - name:  Pretend to be virtualenvwrapper
   file: dest=/home/vagrant/.virtualenvs/rm/.project state=touch
 
@@ -164,14 +164,17 @@
   copy: src=rm_local_settings.py dest=/usr/lib/ohc/randomise.me/rm/local_settings.py
 
 
-  
+
 ## DDD
 
 - name: Install Sauce Codes (DDD)
-  git: repo=git@github.com:openhealthcare/{{ item }} 
+  git: repo=git@github.com:openhealthcare/{{ item }}
        dest=/usr/lib/ohc/{{ item }} update=yes
-  with_items: 
+  with_items:
       - ddd
+
+- name: Preinstall hex
+  command: mix local.hex --force chdir=/usr/lib/ohc/ddd
 
 - name: Compile DDDDependencies
   command: mix deps.get chdir=/usr/lib/ohc/ddd
