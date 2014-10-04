@@ -1,3 +1,8 @@
+
+- name: Set locale
+  sudo: yes
+  command: /usr/sbin/update-locale LANG=en_GB.UTF-8 LC_ALL=en_GB.UTF-8
+
 - name: Update Apt
   sudo: yes
   command: apt-get update
