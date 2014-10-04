@@ -1,3 +1,8 @@
+
+- name: Set locale
+  sudo: yes
+  command: /usr/sbin/update-locale LANG=en_GB.UTF-8 LC_ALL=en_GB.UTF-8
+
 - name: Update Apt
   sudo: yes
   command: apt-get update
@@ -58,3 +63,20 @@
 
 - name: SSH | Add Git repo host key to known_hosts file
   lineinfile: create=yes dest=/home/vagrant/.ssh/known_hosts line='{{ git_repo_host_key.stdout }}' state=present
+
+# Elixir
+
+- name: Erlang Solutionise
+  sudo: yes
+  command: wget http://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb chdir=/tmp
+
+- name: Install deb  
+  sudo: yes
+  command: dpkg -i erlang-solutions_1.0_all.deb chdir=/tmp
+  
+- name: Install Elixir
+  sudo: yes
+  apt: pkg={{ item }} state=installed update_cache=yes force=yes
+  with_items:
+    - erlang
+    - elixir
