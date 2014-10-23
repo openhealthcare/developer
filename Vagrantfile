@@ -27,8 +27,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
   # Django
   config.vm.network "forwarded_port", guest: 8000, host: 8000
-  # Jekyll
+  # Jekyll and elixir apps
   config.vm.network "forwarded_port", guest: 4000, host: 4000
+  config.vm.network "forwarded_port", guest: 5000, host: 5000
   
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -131,8 +132,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Install required software, dependencies and configurations on the
   # virtual machine using a provisioner.
   config.vm.provision "ansible" do |ansible|
+    ENV["ANSIBLE_COW_SELECTION"] ||= "stegosaurus"
     ansible.playbook = "provision/vagrant.yml"
-  # ansible.verbose = 'vvvv'
+    # ansible.verbose = 'vvvv'
   end
 
 end
