@@ -208,8 +208,10 @@
     - qt4-qmake
     - libqt4-dev
 
-- name: Install hl7parser
+- name: Configure hl7parser
   command: chdir=/usr/lib/ohc/scratch/hl7parser ./configure
+
+- name: Compile hl7parser
   command: chdir=/usr/lib/ohc/scratch/hl7parser make
 
 - name: Make install hl7parser
@@ -223,12 +225,16 @@
 - name: Install Glossolalia hex
   command: chdir=/usr/lib/ohc/glossolalia mix local.hex --force
 
-- name: Compile Glossolalia dependencies
+- name: Fetch Glossolalia dependencies
   command: chdir=/usr/lib/ohc/glossolalia mix deps.get
+  
+- name: Compile Glossolalia dependencies  
   command: chdir=/usr/lib/ohc/glossolalia mix deps.compile ehl7
 
 ## DDD Deps
 
 - name: Compile DDDDependencies
   command: chdir=/usr/lib/ohc/ddd mix local.hex --force
+
+- name: Fetch DDDDependencies
   command: chdir=/usr/lib/ohc/ddd mix deps.get
