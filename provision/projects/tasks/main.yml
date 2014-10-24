@@ -165,16 +165,76 @@
 
 
 
-## DDD
+###############################################################################
+# Elixir projects ...
+###############################################################################
 
-- name: Install Sauce Codes (DDD)
+- name: Create scratch directory
+  file: path=/usr/lib/ohc/scratch/ state=directory
+
+## Install repos
+
+- name: Install Rebar source code
+  git: repo=git://github.com/rebar/rebar.git
+       dest=/usr/lib/ohc/scratch/rebar update=yes
+
+- name: Install hl7parser source code
+  git: repo=git://github.com/jcomellas/hl7parser
+       dest=/usr/lib/ohc/scratch/hl7parser update=yes
+
+- name: Install Elixir apps Sauce Codes
   git: repo=git@github.com:openhealthcare/{{ item }}
        dest=/usr/lib/ohc/{{ item }} update=yes
   with_items:
       - ddd
+      - glossolalia
 
-- name: Preinstall hex
-  command: mix local.hex --force chdir=/usr/lib/ohc/ddd
+### Install rebar
+
+- name: Bootstrap Rebar
+  command: chdir=/usr/lib/ohc/scratch/rebar/ ./bootstrap
+
+- name: Create symlink to rebar
+  file: src=/usr/lib/ohc/scratch/rebar/rebar dest=/usr/local/bin/rebar state=link
+  sudo: true
+
+## Glossolalia Deps
+
+- name: Glossolalia apt dependencies
+  apt: pkg={{ item }} update_cache=yes
+  sudo: true
+  with_items:
+    - libssl-dev
+    - qt4-qmake
+    - libqt4-dev
+
+- name: Configure hl7parser
+  command: chdir=/usr/lib/ohc/scratch/hl7parser ./configure
+
+- name: Compile hl7parser
+  command: chdir=/usr/lib/ohc/scratch/hl7parser make
+
+- name: Make install hl7parser
+  command: chdir=/usr/lib/ohc/scratch/hl7parser make install
+  sudo: true
+
+- name: ldconfig hl7parser
+  command: chdir=/usr/lib/ohc/scratch/hl7parser ldconfig
+  sudo: true
+
+- name: Install Glossolalia hex
+  command: chdir=/usr/lib/ohc/glossolalia mix local.hex --force
+
+- name: Fetch Glossolalia dependencies
+  command: chdir=/usr/lib/ohc/glossolalia mix deps.get
+  
+- name: Compile Glossolalia dependencies  
+  command: chdir=/usr/lib/ohc/glossolalia mix deps.compile ehl7
+
+## DDD Deps
 
 - name: Compile DDDDependencies
-  command: mix deps.get chdir=/usr/lib/ohc/ddd
+  command: chdir=/usr/lib/ohc/ddd mix local.hex --force
+
+- name: Fetch DDDDependencies
+  command: chdir=/usr/lib/ohc/ddd mix deps.get
