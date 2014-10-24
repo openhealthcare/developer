@@ -188,6 +188,7 @@
   with_items:
       - ddd
       - glossolalia
+      - fp17
 
 ### Install rebar
 
@@ -227,8 +228,8 @@
 
 - name: Fetch Glossolalia dependencies
   command: chdir=/usr/lib/ohc/glossolalia mix deps.get
-  
-- name: Compile Glossolalia dependencies  
+
+- name: Compile Glossolalia dependencies
   command: chdir=/usr/lib/ohc/glossolalia mix deps.compile ehl7
 
 ## DDD Deps
