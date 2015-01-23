@@ -110,7 +110,13 @@
   git: repo=git@github.com:openhealthcare/{{ item }}
        dest=/usr/lib/ohc/{{ item }} update=yes
   with_items:
-      - static-ohc
+      - openhealthcare.org.uk
+      - opal.openhealthcare.org.uk
+      - elcid.openhealthcare.org.uk
+
+- name: Install NHS Hackday site
+  git: repo=git@github.com:nhshackday/nhshackday.github.io
+      dest=/usr/lib/ohc/nhshackday.github.io update=yes
 
 - name: install rvm
   shell: \curl -L https://get.rvm.io | bash -s stable --autolibs=3 creates=~/.rvm
