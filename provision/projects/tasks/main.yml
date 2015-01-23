@@ -56,6 +56,10 @@
       - opal-observations
       - opal-walk-in
       - opal-referral
+      - opal-analytics
+      - opal-wardround
+      - opal-referral
+      
 
 - name: Add to elcid env (OPAL Plugins)
   command: /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/{{item}}/setup.py develop
@@ -64,6 +68,9 @@
       - opal-research
       - opal-observations
       - opal-walk-in
+      - opal-referral
+      - opal-analytics
+      - opal-wardround
       - opal-referral
 
 # Who Pays This Doctor Dot Org
