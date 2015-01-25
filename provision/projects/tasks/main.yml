@@ -201,7 +201,7 @@
   git: repo=git@github.com:openhealthcare/{{ item }}
        dest=/usr/lib/ohc/{{ item }} update=yes
   with_items:
-      - ddd
+      - cedar
       - glossolalia
       - fp17
 
@@ -247,13 +247,13 @@
 - name: Compile Glossolalia dependencies
   command: chdir=/usr/lib/ohc/glossolalia mix deps.compile ehl7
 
-## DDD Deps
+## Cedar Deps
 
-- name: Compile DDDDependencies
-  command: chdir=/usr/lib/ohc/ddd mix local.hex --force
+- name: Compile Cedar dependencies
+  command: chdir=/usr/lib/ohc/cedar mix local.hex --force
 
-- name: Fetch DDDDependencies
-  command: chdir=/usr/lib/ohc/ddd mix deps.get
+- name: Fetch Cedar dependencies
+  command: chdir=/usr/lib/ohc/cedar mix deps.get
 
 ##########################
 # Service orchestration
