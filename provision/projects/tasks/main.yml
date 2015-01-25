@@ -254,3 +254,22 @@
 
 - name: Fetch DDDDependencies
   command: chdir=/usr/lib/ohc/ddd mix deps.get
+
+##########################
+# Service orchestration
+##########################
+- name: Install Toscanini
+  git: repo=git://github.com/openhealthcare/toscanini
+       dest=/usr/lib/ohc/scratch/rebar update=yes
+
+- name:  Create Virtualenv
+  command: virtualenv  /home/vagrant/.virtualenvs/toscanini
+
+- name:  Pretend to be virtualenvwrapper
+  file: dest=/home/vagrant/.virtualenvs/toscanini/.project state=touch
+
+- name:  Pretend to be virtualenvwrapper pt. 2
+  lineinfile: dest=/home/vagrant/.virtualenvs/toscanini/.project line="/usr/lib/ohc/toscanini"
+
+- name:  Install Dependencies
+  command: /home/vagrant/.virtualenvs/toscanini/bin/pip install -r /usr/lib/ohc/toscanini/requirements.txt
