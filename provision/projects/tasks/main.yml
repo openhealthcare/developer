@@ -51,30 +51,28 @@
   git: repo=git@github.com:openhealthcare/{{ item }}
        dest=/usr/lib/ohc/{{ item }} update=yes
   with_items:
-      - opal-infectioncontrol
-      - opal-research
-      - opal-observations
-      - opal-walk-in
-      - opal-referral
       - opal-analytics
-      - opal-wardround
+      - opal-infectioncontrol
+      - opal-observations
       - opal-referral
-      
+      - opal-research
+      - opal-walk-in
+      - opal-wardround
+      - opal-zendesk
 
 - name: Add to elcid env (OPAL Plugins)
   command: /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/{{item}}/setup.py develop
   with_items:
-      - opal-infectioncontrol
-      - opal-research
-      - opal-observations
-      - opal-walk-in
-      - opal-referral
       - opal-analytics
-      - opal-wardround
+      - opal-infectioncontrol
+      - opal-observations
       - opal-referral
+      - opal-research
+      - opal-walk-in
+      - opal-wardround
+      - opal-zendesk
 
 # Who Pays This Doctor Dot Org
-
 
 - name: Install Sauce Codes (who pays?)
   git: repo=git@github.com:openhealthcare/{{ item }}
@@ -125,7 +123,7 @@
   shell: ~/.rvm/bin/rvm install --default 1.9.3 creates=~/.rvm/rubies/1.9.3
 
 - name: bundle install
-  shell: 'executable=/bin/bash chdir=/usr/lib/ohc/static-ohc . "$HOME/.rvm/scripts/rvm" ; rvm use 1.9.3@ohcstatic --create ; bundle'
+  shell: 'executable=/bin/bash chdir=/usr/lib/ohc/openhealthcare.org.uk . "$HOME/.rvm/scripts/rvm" ; rvm use 1.9.3@ohcstatic --create ; bundle'
 
 # Randomise Me
 
