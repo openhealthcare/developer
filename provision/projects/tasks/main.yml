@@ -116,6 +116,9 @@
   git: repo=git@github.com:nhshackday/nhshackday.github.io
       dest=/usr/lib/ohc/nhshackday.github.io update=yes
 
+- name: import keys for rvm install to work
+  shell: gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+
 - name: install rvm
   shell: \curl -L https://get.rvm.io | bash -s stable --autolibs=3 creates=~/.rvm
 
