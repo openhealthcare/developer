@@ -74,33 +74,33 @@
 
 # Who Pays This Doctor Dot Org
 
-- name: Install Sauce Codes (who pays?)
-  git: repo=git@github.com:openhealthcare/{{ item }}
-       dest=/usr/lib/ohc/{{ item }} update=yes
-  with_items:
-      - whopaysthisdoctor.org
+#- name: Install Sauce Codes (who pays?)
+#  git: repo=git@github.com:openhealthcare/{{ item }}
+#       dest=/usr/lib/ohc/{{ item }} update=yes
+#  with_items:
+#      - whopaysthisdoctor.org
 
-- name:  Create whopays Virtualenv
-  command: virtualenv  /home/vagrant/.virtualenvs/whopays
+#- name:  Create whopays Virtualenv
+#  command: virtualenv  /home/vagrant/.virtualenvs/whopays
 
-- name:  Pretend to be virtualenvwrapper
-  file: dest=/home/vagrant/.virtualenvs/whopays/.project state=touch
+#- name:  Pretend to be virtualenvwrapper
+#  file: dest=/home/vagrant/.virtualenvs/whopays/.project state=touch
 
-- name:  Pretend to be virtualenvwrapper pt. 2
-  lineinfile: dest=/home/vagrant/.virtualenvs/whopays/.project line="/usr/lib/ohc/whopaysthisdoctor.org"
+#- name:  Pretend to be virtualenvwrapper pt. 2
+#  lineinfile: dest=/home/vagrant/.virtualenvs/whopays/.project line="/usr/lib/ohc/whopaysthisdoctor.org"
 
-- name:  Install whopays Dependencies
-  command: /home/vagrant/.virtualenvs/whopays/bin/pip install -r /usr/lib/ohc/whopaysthisdoctor.org/requirements.txt
+#- name:  Install whopays Dependencies
+#  command: /home/vagrant/.virtualenvs/whopays/bin/pip install -r /usr/lib/ohc/whopaysthisdoctor.org/requirements.txt
 
-- name:  Sync Our Databases - initial!
-  command: /home/vagrant/.virtualenvs/whopays/bin/python /usr/lib/ohc/whopaysthisdoctor.org/manage.py syncdb --noinput --migrate
+#- name:  Sync Our Databases - initial!
+#  command: /home/vagrant/.virtualenvs/whopays/bin/python /usr/lib/ohc/whopaysthisdoctor.org/manage.py syncdb --noinput --migrate
 
-- name:  Create a local settings file!
-  copy: src=elcid_local_settings.py dest=/usr/lib/ohc/whopaysthisdoctor.org/whopays/local_settings.py force=yes
+#- name:  Create a local settings file!
+#  copy: src=elcid_local_settings.py dest=/usr/lib/ohc/whopaysthisdoctor.org/whopays/local_settings.py force=yes
 
-- name:  Create users
-  command: echo "from django.contrib.auth.models import User; User.objects.create_superuser('super', 'admin@example.com', 'super1')" | /home/vagrant/.virtualenvs/whopays/bin/python manage.py shell
-           chdir=/usr/lib/ohc/whopaysthisdoctor.org
+#- name:  Create users
+#  command: echo "from django.contrib.auth.models import User; User.objects.create_superuser('super', 'admin@example.com', 'super1')" | /home/vagrant/.virtualenvs/whopays/bin/python manage.py shell
+#           chdir=/usr/lib/ohc/whopaysthisdoctor.org
 
 # Static OHC site.
 
@@ -130,54 +130,54 @@
 
 # Randomise Me
 
-- name: Install Sauce Codes (RM)
-  git: repo=git@github.com:openhealthcare/{{ item }}
-       dest=/usr/lib/ohc/{{ item }} update=yes
-  with_items:
-      - randomise.me
+#- name: Install Sauce Codes (RM)
+#  git: repo=git@github.com:openhealthcare/{{ item }}
+#       dest=/usr/lib/ohc/{{ item }} update=yes
+#  with_items:
+#      - randomise.me
 
-- name: Randomise.me apt dependencies
-  apt: pkg={{ item }} update_cache=yes
-  sudo: true
-  with_items:
-    - libxml2
-    - libxml2-dev
-    - libxslt-dev
-    - libevent-2.0-5
-    - libevent-dev
-    - libblas-dev
-    - libblas3gf
-    - gfortran
-    - liblapack-dev
+#- name: Randomise.me apt dependencies
+#  apt: pkg={{ item }} update_cache=yes
+#  sudo: true
+#  with_items:
+#    - libxml2
+#    - libxml2-dev
+#    - libxslt-dev
+#    - libevent-2.0-5
+#    - libevent-dev
+#    - libblas-dev
+#    - libblas3gf
+#    - gfortran
+#    - liblapack-dev
+#
+#- name:  Create Randomise.me Virtualenv
+#  command: virtualenv  /home/vagrant/.virtualenvs/rm
 
-- name:  Create Randomise.me Virtualenv
-  command: virtualenv  /home/vagrant/.virtualenvs/rm
+#- name:  Pretend to be virtualenvwrapper
+#  file: dest=/home/vagrant/.virtualenvs/rm/.project state=touch
+#
+#- name:  Pretend to be virtualenvwrapper pt. 2
+#  lineinfile: dest=/home/vagrant/.virtualenvs/rm/.project line="/usr/lib/ohc/randomise.me"
 
-- name:  Pretend to be virtualenvwrapper
-  file: dest=/home/vagrant/.virtualenvs/rm/.project state=touch
+# name: Install numpy so that scipy doesn't complain.
+# command:  /home/vagrant/.virtualenvs/rm/bin/pip install numpy==1.7.1
 
-- name:  Pretend to be virtualenvwrapper pt. 2
-  lineinfile: dest=/home/vagrant/.virtualenvs/rm/.project line="/usr/lib/ohc/randomise.me"
-
-- name: Install numpy so that scipy doesn't complain.
-  command:  /home/vagrant/.virtualenvs/rm/bin/pip install numpy==1.7.1
-
-- name:  Install Randomise.me Dependencies
-  command: /home/vagrant/.virtualenvs/rm/bin/pip install -r /usr/lib/ohc/randomise.me/requirements.txt
+#- name:  Install Randomise.me Dependencies
+#  command: /home/vagrant/.virtualenvs/rm/bin/pip install -r /usr/lib/ohc/randomise.me/requirements.txt
 
 # Statsmodels does some funky nonsense in it's setup.py that means we must hav scipy!
-- name: Install statsmodels
-  command: /home/vagrant/.virtualenvs/rm/bin/pip install statsmodels==0.5.0
+#- name: Install statsmodels
+#  command: /home/vagrant/.virtualenvs/rm/bin/pip install statsmodels==0.5.0
 
-- name:  Sync Our RM Databases - initial!
-  command: chdir=/usr/lib/ohc/randomise.me/ /home/vagrant/.virtualenvs/rm/bin/python manage.py syncdb --noinput --migrate
+#- name:  Sync Our RM Databases - initial!
+#  command: chdir=/usr/lib/ohc/randomise.me/ /home/vagrant/.virtualenvs/rm/bin/python manage.py syncdb --noinput --migrate
 
-- name:  Create users
-  command: echo "from django.contrib.auth.models import User; User.objects.create_superuser('super', 'admin@example.com', 'super1')" | /home/vagrant/.virtualenvs/rm/bin/python manage.py shell
-           chdir=/usr/lib/ohc/randomise.me
+#- name:  Create users
+#  command: echo "from django.contrib.auth.models import User; User.objects.create_superuser('super', 'admin@example.com', 'super1')" | /home/vagrant/.virtualenvs/rm/bin/python manage.py shell
+#           chdir=/usr/lib/ohc/randomise.me
 
-- name: Create local settings file
-  copy: src=rm_local_settings.py dest=/usr/lib/ohc/randomise.me/rm/local_settings.py
+#- name: Create local settings file
+#  copy: src=rm_local_settings.py dest=/usr/lib/ohc/randomise.me/rm/local_settings.py
 
 
 
@@ -185,92 +185,59 @@
 # Elixir projects ...
 ###############################################################################
 
-- name: Create scratch directory
-  file: path=/usr/lib/ohc/scratch/ state=directory
+#- name: Create scratch directory
+#  file: path=/usr/lib/ohc/scratch/ state=directory
 
 ## Install repos
 
-- name: Install Rebar source code
-  git: repo=git://github.com/rebar/rebar.git
-       dest=/usr/lib/ohc/scratch/rebar update=yes
+#- name: Install Rebar source code
+#  git: repo=git://github.com/rebar/rebar.git
+#       dest=/usr/lib/ohc/scratch/rebar update=yes
 
-- name: Install hl7parser source code
-  git: repo=git://github.com/jcomellas/hl7parser
-       dest=/usr/lib/ohc/scratch/hl7parser update=yes
+#- name: Install hl7parser source code
+#  git: repo=git://github.com/jcomellas/hl7parser
+#       dest=/usr/lib/ohc/scratch/hl7parser update=yes
 
-- name: Install Elixir apps Sauce Codes
-  git: repo=git@github.com:openhealthcare/{{ item }}
-       dest=/usr/lib/ohc/{{ item }} update=yes
-  with_items:
-      - cedar
-      - glossolalia
-      - fp17
-
+#- name: Install Elixir apps Sauce Codes
+#  git: repo=git@github.com:openhealthcare/{{ item }}
+#       dest=/usr/lib/ohc/{{ item }} update=yes
+#  with_items:
+#      - cedar
+#      - glossolalia
+#      - fp17
+#
 ### Install rebar
 
-- name: Bootstrap Rebar
-  command: chdir=/usr/lib/ohc/scratch/rebar/ ./bootstrap
+#- name: Bootstrap Rebar
+#  command: chdir=/usr/lib/ohc/scratch/rebar/ ./bootstrap
 
-- name: Create symlink to rebar
-  file: src=/usr/lib/ohc/scratch/rebar/rebar dest=/usr/local/bin/rebar state=link
-  sudo: true
+#- name: Create symlink to rebar
+#  file: src=/usr/lib/ohc/scratch/rebar/rebar dest=/usr/local/bin/rebar state=link
+#  sudo: true
 
 ## Glossolalia Deps
 
-- name: Glossolalia apt dependencies
-  apt: pkg={{ item }} update_cache=yes
-  sudo: true
-  with_items:
-    - libssl-dev
-    - qt4-qmake
-    - libqt4-dev
+#- name: Glossolalia apt dependencies
+#  apt: pkg={{ item }} update_cache=yes
+#  sudo: true
+#  with_items:
+#    - libssl-dev
+#    - qt4-qmake
+#    - libqt4-dev
 
-- name: Configure hl7parser
-  command: chdir=/usr/lib/ohc/scratch/hl7parser ./configure
+#- name: Configure hl7parser
+#  command: chdir=/usr/lib/ohc/scratch/hl7parser ./configure
 
-- name: Compile hl7parser
-  command: chdir=/usr/lib/ohc/scratch/hl7parser make
+#- name: Compile hl7parser
+#  command: chdir=/usr/lib/ohc/scratch/hl7parser make
 
-- name: Make install hl7parser
-  command: chdir=/usr/lib/ohc/scratch/hl7parser make install
-  sudo: true
+#- name: Make install hl7parser
+#  command: chdir=/usr/lib/ohc/scratch/hl7parser make install
+#  sudo: true
 
-- name: ldconfig hl7parser
-  command: chdir=/usr/lib/ohc/scratch/hl7parser ldconfig
-  sudo: true
+#- name: ldconfig hl7parser
+#  command: chdir=/usr/lib/ohc/scratch/hl7parser ldconfig
+#  sudo: true
 
-- name: Install Glossolalia hex
-  command: chdir=/usr/lib/ohc/glossolalia mix local.hex --force
-
-- name: Fetch Glossolalia dependencies
-  command: chdir=/usr/lib/ohc/glossolalia mix deps.get
-
-- name: Compile Glossolalia dependencies
-  command: chdir=/usr/lib/ohc/glossolalia mix deps.compile ehl7
-
-## Cedar Deps
-
-- name: Compile Cedar dependencies
-  command: chdir=/usr/lib/ohc/cedar mix local.hex --force
-
-- name: Fetch Cedar dependencies
-  command: chdir=/usr/lib/ohc/cedar mix deps.get
-
-##########################
-# Service orchestration
-##########################
-- name: Install Toscanini
-  git: repo=git://github.com/openhealthcare/toscanini
-       dest=/usr/lib/ohc/scratch/rebar update=yes
-
-- name:  Create Virtualenv
-  command: virtualenv  /home/vagrant/.virtualenvs/toscanini
-
-- name:  Pretend to be virtualenvwrapper
-  file: dest=/home/vagrant/.virtualenvs/toscanini/.project state=touch
-
-- name:  Pretend to be virtualenvwrapper pt. 2
-  lineinfile: dest=/home/vagrant/.virtualenvs/toscanini/.project line="/usr/lib/ohc/toscanini"
-
-- name:  Install Dependencies
-  command: /home/vagrant/.virtualenvs/toscanini/bin/pip install -r /usr/lib/ohc/toscanini/requirements.txt
+#- name: Install Glossolalia hex
+#  command: chdir=/usr/lib/ohc/glossolalia mix local.hex --force
