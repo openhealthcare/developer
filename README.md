@@ -81,7 +81,7 @@ More specific documentation about each individual project should be available fr
 
 ## Development Workflow
 
-All projects are Code-In-The-Open, with governance conducted on public mailing lists and a record of issues/responses available on the web.
+All of our projects are Code-In-The-Open, with governance conducted on public mailing lists and a record of issues/responses available on the web.
 
 In practice, this means that we have a google group and a github repository.
 
@@ -109,6 +109,11 @@ Use your skill, experience && judgement to figure out when the thing you're doin
 
 All code gets reviewed by a technical colleague where possible - so PRs are your friend. Exeptions may apply to "all". 
 
+Pull Requests should ask the following questions: 
+
+* Do these changes meet the User Need?
+* Does the code have appropriate documentation after this change is made?
+* Are these changes appropriately tested?
 
 ### Deploy to test 
 As a general rule, we maintain test servers per deployment, and per sprint/major feature set, on some kind of cloud IAAS/PAAS system. Specifics will vary. 
