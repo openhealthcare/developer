@@ -15,10 +15,15 @@ You should  have the following things installed:
 * Python (https://www.python.org/)
 * Virtualenv[Wrapper] (http://virtualenvwrapper.readthedocs.org/en/latest/)
 
-```Note: You should make sure that you've set up SSH agent forwarding!
-If you've not done this before, running ssh-add will help.```
 
 Got all that? Proceed directly to step 1.
+
+### Step 0. - Preparation
+
+You should make sure that you've set up SSH agent forwarding!
+If you've not done this before, running ssh-add will help.
+
+    $ ssh-add
 
 ### Step 1. - Bootstrapping
 
@@ -35,12 +40,18 @@ Install the requirements for provisioning your dev environment:
 
     $ pip install -r requirements.txt
 
+Edit the vagrant provisioning config at `./provision/vagrant.yml` `to enable the components you
+want to install.
+
 Run the bootstrap script: 
 
     $ ./bin/bootstrap
 
 ```Note: if you're running an old version of Vagrant (< 1.6.3), it may not know about the existence of 
 named boxes on Vagrant Cloud. Try updating the latest version!```
+
+
+```Note: if something fails and you want to re-run the provisioner, try vagrant provision```
 
 ### Step 2. - Run Something
 
@@ -56,16 +67,13 @@ From there you will have some virtual environments for projects set up - activat
 
 This will activate the correct sandbox and take you to the correct working directory for that project. 
 
-Standard development superusers will have been created, so try logging in with super/super1
-
 From here , you can run the service: 
 
     $ python manage.py runserver 0.0.0.0:8000
 
 The vagrant box will forward this port - so you should be able to now visit http://localhost:8000 and see a running version of the project. 
 
-
-TODO: Run the tests
+Standard development superusers will have been created, so try logging in with super/super1
 
 ### Step 3. 
 

@@ -1,76 +1,41 @@
-# TODO: Make these pushable from the host
-
-- name: Install Sauce Codes (elcid, opal)
-  git: repo=git@github.com:openhealthcare/{{ item }}
-       dest=/usr/lib/ohc/{{ item }} update=yes
-  with_items:
-      - opal
-      - elcid
-
-
 #- name: elCID project setup
-- name:  Create elCID Virtualenv
-  command: virtualenv  /home/vagrant/.virtualenvs/elcid
+# - name:  Create elCID Virtualenv
+#   command: virtualenv  /home/vagrant/.virtualenvs/elcid
 
-- name:  Pretend to be virtualenvwrapper
-  file: dest=/home/vagrant/.virtualenvs/elcid/.project state=touch
+# - name:  Pretend to be virtualenvwrapper
+#   file: dest=/home/vagrant/.virtualenvs/elcid/.project state=touch
 
-- name:  Pretend to be virtualenvwrapper pt. 2
-  lineinfile: dest=/home/vagrant/.virtualenvs/elcid/.project line="/usr/lib/ohc/elcid"
+# - name:  Pretend to be virtualenvwrapper pt. 2
+#   lineinfile: dest=/home/vagrant/.virtualenvs/elcid/.project line="/usr/lib/ohc/elcid"
 
-- name:  Install elCID Dependencies
-  command: /home/vagrant/.virtualenvs/elcid/bin/pip install -r /usr/lib/ohc/elcid/requirements.txt
 
-- name:  Uninstall elCID OPAL
-  command: /home/vagrant/.virtualenvs/elcid/bin/pip uninstall -y opal
+# - name:  Sync Our Databases - initial!
+#   command: chdir=/usr/lib/ohc/elcid/ /home/vagrant/.virtualenvs/elcid/bin/python manage.py syncdb --noinput --migrate
 
-- name:  Install development opal
-  command: /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/opal/setup.py develop
+# - name:  Load the lookup lists!
+#   command: chdir=/usr/lib/ohc/elcid/ /home/vagrant/.virtualenvs/elcid/bin/python manage.py loaddata dumps/options.json
+#   command: chdir=/usr/lib/ohc/elcid/ /home/vagrant/.virtualenvs/elcid/bin/python manage.py loaddata dumps/opat.json
 
-- name: Set up JS Unittesting
-  sudo: yes
-  command: npm install karma chdir=/usr/lib/ohc/elcid
+# - name:  Create a local settings file!
+#   copy: src=elcid_local_settings.py dest=/usr/lib/ohc/elcid/elcid/local_settings.py force=yes
 
-- name:  Sync Our Databases - initial!
-  command: chdir=/usr/lib/ohc/elcid/ /home/vagrant/.virtualenvs/elcid/bin/python manage.py syncdb --noinput --migrate
-
-- name:  Load the lookup lists!
-  command: chdir=/usr/lib/ohc/elcid/ /home/vagrant/.virtualenvs/elcid/bin/python manage.py loaddata dumps/options.json
-  command: chdir=/usr/lib/ohc/elcid/ /home/vagrant/.virtualenvs/elcid/bin/python manage.py loaddata dumps/opat.json
-
-- name:  Create a local settings file!
-  copy: src=elcid_local_settings.py dest=/usr/lib/ohc/elcid/elcid/local_settings.py force=yes
-
-- name:  Create users
-  command: echo "from django.contrib.auth.models import User; User.objects.create_superuser('super', 'admin@example.com', 'super1')" | /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/elcid/manage.py shell
-           chdir=/usr/lib/ohc/elcid
+# - name:  Create users
+#   command: echo "from django.contrib.auth.models import User; User.objects.create_superuser('super', 'admin@example.com', 'super1')" | /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/elcid/manage.py shell
+#            chdir=/usr/lib/ohc/elcid
 
 # OPAL Plugins
 
-- name: Install Sauce Codes (OPAL Plugins)
-  git: repo=git@github.com:openhealthcare/{{ item }}
-       dest=/usr/lib/ohc/{{ item }} update=yes
-  with_items:
-      - opal-analytics
-      - opal-infectioncontrol
-      - opal-observations
-      - opal-referral
-      - opal-research
-      - opal-walk-in
-      - opal-wardround
-      - opal-zendesk
-
-- name: Add to elcid env (OPAL Plugins)
-  command: /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/{{item}}/setup.py develop
-  with_items:
-      - opal-analytics
-      - opal-infectioncontrol
-      - opal-observations
-      - opal-referral
-      - opal-research
-      - opal-walk-in
-      - opal-wardround
-      - opal-zendesk
+# - name: Add to elcid env (OPAL Plugins)
+#   command: /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/{{item}}/setup.py develop
+#   with_items:
+#       - opal-analytics
+#       - opal-infectioncontrol
+#       - opal-observations
+#       - opal-referral
+#       - opal-research
+#       - opal-walk-in
+#       - opal-wardround
+#       - opal-zendesk
 
 # Who Pays This Doctor Dot Org
 
@@ -104,29 +69,29 @@
 
 # Static OHC site.
 
-- name: Install Sauce Codes (static sites)
-  git: repo=git@github.com:openhealthcare/{{ item }}
-       dest=/usr/lib/ohc/{{ item }} update=yes
-  with_items:
-      - openhealthcare.org.uk
-      - opal.openhealthcare.org.uk
-      - elcid.openhealthcare.org.uk
+# - name: Install Sauce Codes (static sites)
+#   git: repo=git@github.com:openhealthcare/{{ item }}
+#        dest=/usr/lib/ohc/{{ item }} update=yes
+#   with_items:
+#       - openhealthcare.org.uk
+#       - opal.openhealthcare.org.uk
+#       - elcid.openhealthcare.org.uk
 
-- name: Install NHS Hackday site
-  git: repo=git@github.com:nhshackday/nhshackday.github.io
-      dest=/usr/lib/ohc/nhshackday.github.io update=yes
+# - name: Install NHS Hackday site
+#   git: repo=git@github.com:nhshackday/nhshackday.github.io
+#       dest=/usr/lib/ohc/nhshackday.github.io update=yes
 
-- name: import keys for rvm install to work
-  shell: gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+# - name: import keys for rvm install to work
+#   shell: gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 
-- name: install rvm
-  shell: \curl -L https://get.rvm.io | bash -s stable --autolibs=3 creates=~/.rvm
+# - name: install rvm
+#   shell: \curl -L https://get.rvm.io | bash -s stable --autolibs=3 creates=~/.rvm
 
-- name: install ruby
-  shell: ~/.rvm/bin/rvm install --default 1.9.3 creates=~/.rvm/rubies/1.9.3
+# - name: install ruby
+#   shell: ~/.rvm/bin/rvm install --default 1.9.3 creates=~/.rvm/rubies/1.9.3
 
-- name: bundle install
-  shell: 'executable=/bin/bash chdir=/usr/lib/ohc/openhealthcare.org.uk . "$HOME/.rvm/scripts/rvm" ; rvm use 1.9.3@ohcstatic --create ; bundle'
+# - name: bundle install
+#   shell: 'executable=/bin/bash chdir=/usr/lib/ohc/openhealthcare.org.uk . "$HOME/.rvm/scripts/rvm" ; rvm use 1.9.3@ohcstatic --create ; bundle'
 
 # Randomise Me
 

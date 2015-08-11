@@ -1,0 +1,96 @@
+# 
+# Setup for OPAL development
+# 
+
+- name: Install Sauce Codes (elCID, OPAL, Plugins)
+  git: repo=git@github.com:openhealthcare/{{ item }}
+       dest=/usr/lib/ohc/{{ item }} update=yes
+  with_items:
+      - opal
+      - elcid
+      - opal-analytics
+      - opal-dashboard
+      - opal-dischargesummary
+      - opal-guidelines
+      - opal-infectioncontrol
+      - opal-observations
+      - opal-opat
+      - opal-referral
+      - opal-research
+      - opal-walk-in
+      - opal-wardround
+      - opal-zendesk
+
+- name:  Create Virtualenvs
+  command: virtualenv  /home/vagrant/.virtualenvs/{{ item }}
+  with_items:
+    - opal
+    - elcid
+
+- name:  Pretend to be virtualenvwrapper
+  file: dest=/home/vagrant/.virtualenvs/{{ item }}/.project state=touch
+  with_items:
+    - opal
+    - elcid
+
+- name:  Pretend to be virtualenvwrapper pt. 2
+  lineinfile: dest=/home/vagrant/.virtualenvs/{{ item }}/.project 
+              line="/usr/lib/ohc/{{ item }}"
+  with_items:
+    - opal
+    - elcid
+
+- name:  Update setuptools
+  command: /home/vagrant/.virtualenvs/{{ item  }}/bin/pip install -U setuptools
+  with_items:
+    - opal
+    - elcid
+
+- name:  Install elCID Dependencies
+  command: /home/vagrant/.virtualenvs/elcid/bin/pip install -r /usr/lib/ohc/elcid/requirements.txt
+
+- name:  Uninstall elCID OPAL
+  command: /home/vagrant/.virtualenvs/elcid/bin/pip uninstall -y opal
+
+- name:  Install development opal
+  command: /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/opal/setup.py develop
+
+- name:  Install OPAL Dependencies
+  command: /home/vagrant/.virtualenvs/opal/bin/pip install -r /usr/lib/ohc/opal/test-requirements.txt
+
+- name:  Install OPAL (testing)
+  command: /home/vagrant/.virtualenvs/opal/bin/python /usr/lib/ohc/opal/setup.py develop
+
+- name: Set up JS Unittesting
+  sudo: yes
+  command: npm install karma chdir=/usr/lib/ohc/elcid
+
+- name:  Sync elCID Database
+  command: chdir=/usr/lib/ohc/elcid/ /home/vagrant/.virtualenvs/elcid/bin/python manage.py syncdb --noinput --migrate
+
+- name:  Load elCID lookup lists
+  command: chdir=/usr/lib/ohc/elcid/ /home/vagrant/.virtualenvs/elcid/bin/python manage.py load_lookup_lists data/lookuplists/lookuplists.json
+  command: chdir=/usr/lib/ohc/elcid/ /home/vagrant/.virtualenvs/elcid/bin/python manage.py loaddata data/elcid.teams.json
+
+- name:  Create elCID local settings file!
+  copy: src=elcid_local_settings.py dest=/usr/lib/ohc/elcid/elcid/local_settings.py force=yes
+
+- name:  Create elCID users
+  command: echo "from django.contrib.auth.models import User; User.objects.create_superuser('super', 'admin@example.com', 'super1')" | /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/elcid/manage.py shell
+           chdir=/usr/lib/ohc/elcid
+
+- name: Add to elcid env (OPAL Plugins)
+  command: /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/{{item}}/setup.py develop
+  with_items:
+      - opal-analytics
+      - opal-dashboard
+      - opal-dischargesummary
+      - opal-guidelines
+      - opal-infectioncontrol
+      - opal-observations
+      - opal-opat
+      - opal-referral
+      - opal-research
+      - opal-walk-in
+      - opal-wardround
+      - opal-zendesk

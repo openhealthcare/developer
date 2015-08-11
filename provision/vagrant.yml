@@ -1,5 +1,10 @@
 - hosts: all
   gather_facts: false
   roles: 
-      - setup                   
-      - projects
+      - setup
+      - opal
+#      - staticsites
+
+
+# Old - please don't use !
+ #     - projects
