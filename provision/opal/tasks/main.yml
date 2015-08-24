@@ -20,6 +20,7 @@
       - opal-walk-in
       - opal-wardround
       - opal-zendesk
+      - opal-iframe-api
 
 - name:  Create Virtualenvs
   command: virtualenv  /home/vagrant/.virtualenvs/{{ item }}
@@ -94,3 +95,4 @@
       - opal-walk-in
       - opal-wardround
       - opal-zendesk
+      - opal-iframe-api
