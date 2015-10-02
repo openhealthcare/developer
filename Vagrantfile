@@ -4,7 +4,7 @@
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
-# Just in case someone also has vmware provider installed, let's default to 
+# Just in case someone also has vmware provider installed, let's default to
 # using Virtualbox.
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 
@@ -24,13 +24,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
-  
+
   # Django
   config.vm.network "forwarded_port", guest: 8000, host: 8000
   # Jekyll and elixir apps
   config.vm.network "forwarded_port", guest: 4000, host: 4000
   config.vm.network "forwarded_port", guest: 5000, host: 5000
-  
+
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   # config.vm.network "private_network", ip: "192.168.33.10"
