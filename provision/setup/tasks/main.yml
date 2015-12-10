@@ -70,10 +70,10 @@
   sudo: yes
   command: wget http://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb chdir=/tmp
 
-- name: Install deb  
+- name: Install deb
   sudo: yes
   command: dpkg -i erlang-solutions_1.0_all.deb chdir=/tmp
-  
+
 - name: Install Elixir
   sudo: yes
   apt: pkg={{ item }} state=installed update_cache=yes force=yes

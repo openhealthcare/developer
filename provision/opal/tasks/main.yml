@@ -1,6 +1,6 @@
-# 
+#
 # Setup for OPAL development
-# 
+#
 
 - name: Install Sauce Codes (elCID, OPAL, Plugins)
   git: repo=git@github.com:openhealthcare/{{ item }}
@@ -8,6 +8,7 @@
   with_items:
       - opal
       - elcid
+      - elcid-rfh
       - opal-analytics
       - opal-dashboard
       - opal-dischargesummary
@@ -27,34 +28,47 @@
   with_items:
     - opal
     - elcid
+    - elcid-rfh
 
 - name:  Pretend to be virtualenvwrapper
   file: dest=/home/vagrant/.virtualenvs/{{ item }}/.project state=touch
   with_items:
     - opal
     - elcid
+    - elcid-rfh
 
 - name:  Pretend to be virtualenvwrapper pt. 2
-  lineinfile: dest=/home/vagrant/.virtualenvs/{{ item }}/.project 
+  lineinfile: dest=/home/vagrant/.virtualenvs/{{ item }}/.project
               line="/usr/lib/ohc/{{ item }}"
   with_items:
     - opal
     - elcid
+    - elcid-rfh
 
 - name:  Update setuptools
   command: /home/vagrant/.virtualenvs/{{ item  }}/bin/pip install -U setuptools
   with_items:
     - opal
     - elcid
+    - elcid-rfh
 
 - name:  Install elCID Dependencies
-  command: /home/vagrant/.virtualenvs/elcid/bin/pip install -r /usr/lib/ohc/elcid/requirements.txt
+  command: /home/vagrant/.virtualenvs/{{ item }}/bin/pip install -r /usr/lib/ohc/{{ item }}/requirements.txt
+  with_items:
+    - elcid
+    - elcid-rfh
 
 - name:  Uninstall elCID OPAL
-  command: /home/vagrant/.virtualenvs/elcid/bin/pip uninstall -y opal
+  command: /home/vagrant/.virtualenvs/{{ item }}/bin/pip uninstall -y opal
+  with_items:
+    - elcid
+    - elcid-rfh
 
 - name:  Install development opal
-  command: /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/opal/setup.py develop
+  command: /home/vagrant/.virtualenvs/{{ item }}/bin/python /usr/lib/ohc/opal/setup.py develop
+  with_items:
+    - elcid
+    - elcid-rfh
 
 - name:  Install OPAL Dependencies
   command: /home/vagrant/.virtualenvs/opal/bin/pip install -r /usr/lib/ohc/opal/test-requirements.txt
@@ -64,17 +78,29 @@
 
 - name: Set up JS Unittesting
   sudo: yes
-  command: npm install karma chdir=/usr/lib/ohc/elcid
+  command: npm install karma chdir=/usr/lib/ohc/{{ item }}
+  with_items:
+    - elcid
+    - elcid-rfh
 
 - name:  Sync elCID Database
-  command: chdir=/usr/lib/ohc/elcid/ /home/vagrant/.virtualenvs/elcid/bin/python manage.py syncdb --noinput --migrate
+  command: chdir=/usr/lib/ohc/{{ item }}/ /home/vagrant/.virtualenvs/{{ item }}/bin/python manage.py migrate --fake-initial
+  with_items:
+    - elcid
+    - elcid-rfh
 
 - name:  Load elCID lookup lists
-  command: chdir=/usr/lib/ohc/elcid/ /home/vagrant/.virtualenvs/elcid/bin/python manage.py load_lookup_lists data/lookuplists/lookuplists.json
-  command: chdir=/usr/lib/ohc/elcid/ /home/vagrant/.virtualenvs/elcid/bin/python manage.py loaddata data/elcid.teams.json
+  command: chdir=/usr/lib/ohc/{{ item }}/ /home/vagrant/.virtualenvs/{{ item }}/bin/python manage.py load_lookup_lists data/lookuplists/lookuplists.json
+  command: chdir=/usr/lib/ohc/{{ item }}/ /home/vagrant/.virtualenvs/{{ item }}/bin/python manage.py loaddata data/elcid.teams.json
+  with_items:
+    - elcid
+    - elcid-rfh
 
 - name:  Create elCID local settings file!
-  copy: src=elcid_local_settings.py dest=/usr/lib/ohc/elcid/elcid/local_settings.py force=yes
+  copy: src=elcid_local_settings.py dest=/usr/lib/ohc/{{ item }}/elcid/local_settings.py force=yes
+  with_items:
+    - elcid
+    - elcid-rfh
 
 - name:  Create elCID users
   command: echo "from django.contrib.auth.models import User; User.objects.create_superuser('super', 'admin@example.com', 'super1')" | /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/elcid/manage.py shell
@@ -82,6 +108,23 @@
 
 - name: Add to elcid env (OPAL Plugins)
   command: /home/vagrant/.virtualenvs/elcid/bin/python /usr/lib/ohc/{{item}}/setup.py develop
+  with_items:
+      - opal-analytics
+      - opal-dashboard
+      - opal-dischargesummary
+      - opal-guidelines
+      - opal-infectioncontrol
+      - opal-observations
+      - opal-opat
+      - opal-referral
+      - opal-research
+      - opal-walk-in
+      - opal-wardround
+      - opal-zendesk
+      - opal-iframe-api
+
+- name: Add to elcid-rfh env (OPAL Plugins)
+  command: /home/vagrant/.virtualenvs/elcid-rfh/bin/python /usr/lib/ohc/{{item}}/setup.py develop
   with_items:
       - opal-analytics
       - opal-dashboard
