@@ -1,6 +1,5 @@
 # Vagrant
 .vagrant/
-*.pem
 
 *~
 
@@ -14,3 +13,4 @@ include/
 lib/
 local/
 .pyc
+.pem
