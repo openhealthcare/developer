@@ -1,3 +1,12 @@
+This repository contains Open Health Care's developer documentation, as well as a complete development environment for working on OHC projects.
+
+## Other Key Documents:
+
+* [Development Workflow](https://github.com/openhealthcare/developer/blob/master/DevelopmentWorkflow.md)
+* [Release Process](https://github.com/openhealthcare/developer/blob/master/ReleaseProcess.md)
+
+## Developer Toolkit (Vagrant Box)
+
 The Open Health Care Developer Toolkit aims to provide a standard development environment for all OHC projects.
 
 (It's a Vagrant box with everything you need set up for you!)
@@ -86,8 +95,3 @@ This process has created a stable, automated development environment for you!
 The source code for projects is located in /usr/lib/ohc/... in the vagrant box, which is mounted to ./src on your guest. 
 
 More specific documentation about each individual project should be available from it's source code or documentation site.
-
-## Other Documents
-
-* [Development Workflow](https://github.com/openhealthcare/developer/blob/master/DevelopmentWorkflow.md)
-* [Release Process](https://github.com/openhealthcare/developer/blob/master/ReleaseProcess.md)
