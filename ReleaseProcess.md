@@ -16,6 +16,8 @@ Create a Pull Request to merge the release branch into master. This should allow
 
 Tag the release appropriately in git.
 
+(If you like you can do this directly with the step below)
+
 ### Github Release pages
 
 Update the Github release pages to include details of this release.
