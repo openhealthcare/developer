@@ -89,5 +89,5 @@ More specific documentation about each individual project should be available fr
 
 ## Other Documents
 
-* [Development Workflow](../DevelopmentWorkflow.md)
-* [Release Process](../ReleaseProcess.md)
+* [Development Workflow](https://github.com/openhealthcare/developer/blob/master/DevelopmentWorkflow.md)
+* [Release Process](https://github.com/openhealthcare/developer/blob/master/ReleaseProcess.md)
