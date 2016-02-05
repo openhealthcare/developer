@@ -8,9 +8,13 @@ This is a living document that will change over time.
 
 Ensure that the changelog is up to date with the contents of this release.
 
-### Tagging & Merging
+### Merge Checks
 
-Merge the release branch into master and tag appropriately.
+Create a Pull Request to merge the release branch into master. This should allow you to check (via continuous integration) that after your release all of our tests and quality checks still pass. Assuming that they do, merge the PR.
+
+### Tagging
+
+Tag the release appropriately in git.
 
 ### Github Release pages
 
