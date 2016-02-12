@@ -4,6 +4,8 @@ This repository contains Open Health Care's developer documentation, as well as 
 
 * [Development Workflow](https://github.com/openhealthcare/developer/blob/master/DevelopmentWorkflow.md) (Tools, processes, et cetera)
 * [Release Process](https://github.com/openhealthcare/developer/blob/master/ReleaseProcess.md) (Checklist for making releases of our code.)
+* [New Projects](https://github.com/openhealthcare/developer/blob/master/NewProjects.md) (Checklist for creating new projects.)
+* 
 
 ## Developer Toolkit (Vagrant Box)
 
