@@ -5,6 +5,7 @@
 - name: Install Sauce Codes (elCID, OPAL, Plugins)
   git: repo=git@github.com:openhealthcare/{{ item }}
        dest=/usr/lib/ohc/{{ item }} update=yes
+       accept_hostkey=yes
        refspec=+refs/pull/*:refs/heads/*
   with_items:
       - opal

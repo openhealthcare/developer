@@ -1,6 +1,6 @@
 - hosts: all
   gather_facts: false
-  roles: 
+  roles:
       - setup
       - opal
 #      - staticsites
