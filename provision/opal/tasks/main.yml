@@ -5,6 +5,7 @@
 - name: Install Sauce Codes (elCID, OPAL, Plugins)
   git: repo=git@github.com:openhealthcare/{{ item }}
        dest=/usr/lib/ohc/{{ item }} update=yes
+       refspec=+refs/pull/*:refs/heads/*
   with_items:
       - opal
       - elcid
@@ -84,7 +85,7 @@
     - elcid-rfh
 
 - name:  Sync elCID Database
-  command: chdir=/usr/lib/ohc/{{ item }}/ /home/vagrant/.virtualenvs/{{ item }}/bin/python manage.py migrate --fake-initial
+  command: chdir=/usr/lib/ohc/{{ item }}/ /home/vagrant/.virtualenvs/{{ item }}/bin/python manage.py migrate
   with_items:
     - elcid
     - elcid-rfh

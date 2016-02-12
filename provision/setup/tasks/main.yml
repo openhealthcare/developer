@@ -1,7 +1,9 @@
 
 - name: Set locale
   sudo: yes
-  command: /usr/sbin/update-locale LANG=en_GB.UTF-8 LC_ALL=en_GB.UTF-8
+  command: /usr/sbin/locale-gen en_GB en_GB.UTF-8
+- sudo: yes
+  command: dpkg-reconfigure locales
 
 - name: Update Apt
   sudo: yes
@@ -49,7 +51,7 @@
 
 - name: Allow password authentication for local socket users
   sudo: yes
-  copy: src=pg_hba.conf dest=/etc/postgresql/9.1/main/pg_hba.conf force=yes
+  copy: src=pg_hba.conf dest=/etc/postgresql/9.3/main/pg_hba.conf force=yes
   notify:
       - Restart Postgres
 
