@@ -30,3 +30,10 @@ Even if it's just a couple of lines explaining what this is going to _become_, w
 Every project we run should have a CODE_OF_CONDUCT.md. 
 
 You can grab a copy from this repository.
+
+### New Project Shouldlist
+
+Projects should have the following things
+
+* Travis
+* Coveralls
