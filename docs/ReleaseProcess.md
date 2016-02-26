@@ -12,6 +12,10 @@ Ensure that the changelog is up to date with the contents of this release.
 
 Create a Pull Request to merge the release branch into master. This should allow you to check (via continuous integration) that after your release all of our tests and quality checks still pass. Assuming that they do, merge the PR.
 
+### Testing
+
+If you have a project that will release e.g. an Exrm release, a Python sdist, etc, test generating, installing and running that release now - before you tag and announce. 
+
 ### Tagging
 
 Tag the release appropriately in git.
