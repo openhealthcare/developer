@@ -34,7 +34,12 @@ If this project has an external documentation website, make sure that it is upda
 
 If this project is published on an external packaging system (e.g. PyPi) then upload the release to that system.
 
-### Delete stale branche on Github
+### Update the default branch of the Github repo
+
+We point Github repos by default at the next release branch - so now is a good time to do that. If you don't have 
+a branch ready for the next release - create one ! 
+
+### Delete stale branch on Github
 
 This is a good time to delete old feature or issue branches from Github. Anything related to a feature you've just merged into master can almost certainly go. Use your judgement and err on the side of keeping branches if you're unsure, but we shouldn't really have anything other than master, release branches, and un-merged feature branches.
 
