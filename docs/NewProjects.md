@@ -36,4 +36,7 @@ You can grab a copy from this repository.
 Projects should have the following things
 
 * Travis
-* Coveralls
+* Coveralls (For all languages)
+* Add to relevant waffle board(s)
+* Have a release branch structure in place
+
